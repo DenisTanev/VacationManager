@@ -1,0 +1,38 @@
+﻿@model EmployeeDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.User.FirstName + " " + Model.User.LastName;
+}
+
+<h1>Details</h1>
+
+<div class="details">
+    <h4>@Model.User.FirstName @Model.User.LastName</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3 col-12">
+            First name
+        </div>
+        <div class="col-md-9 col-12">
+            @Model.User.FirstName
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            Last name
+        </div>
+        <div class="col-md-9 col-12">
+            @Model.User.LastName
+        </div>
+    </div>
+        @if (Model.User.PhoneNumber != null)
+    {
+        <div class="row">
+            <div class="col-md-3 col-12">
+                Phone number
+            </div>
+            <div class="col-md-9 col-12">
+                @Model.User.PhoneNumber
+            </div>
+        </div>
+    }

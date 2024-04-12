@@ -1,0 +1,69 @@
+﻿@model AppUser
+@using VacationManager.ViewModels
+
+@{
+    ViewData["Title"] = "Edit user";
+}
+
+<h1>Edit</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <!-- User information form elements -->
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <!-- Role management form elements -->
+            <h3>Manage Role for @Model.UserName</h3>
+            <div class="form-group">
+                <label for="selectedRoles">Select Role(s)</label>
+                <select name="selectedRoles" class="form-control" id="selectedRoles" multiple>
+                    @foreach (var role in ViewBag.AllRoles)
+                    {
+                        <option value="@role">@role</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Pre-select the current user roles in the multiple select box
+        $(document).ready(function () {
+            var userRoles = @Html.Raw(Json.Serialize(ViewBag.UserRoles));
+            $("#selectedRoles").val(userRoles);
+        });
+    </script>
+}

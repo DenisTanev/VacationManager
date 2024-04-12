@@ -17,7 +17,7 @@ namespace VacationManager.Models
 
 
 
-        /*[DisplayName("Team")]
+        [DisplayName("Team")]
         public int? TeamId { get; set; }
         public Team Team { get; set; }
 
@@ -27,7 +27,7 @@ namespace VacationManager.Models
 
 
 
-        public IEnumerable<Holiday> RequestedHolidays { get; set; }*/
+        public IEnumerable<Holiday> RequestedHolidays { get; set; }
 
         [DisplayName("Main role")]
         [NotMapped]
