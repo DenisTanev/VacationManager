@@ -20,10 +20,23 @@ namespace VacationManager.Controllers
             _db = db;
             _roleManager = roleManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString1, string searchString2)
         {
+            var usersQuery = _userManager.Users;
+
+            if (!string.IsNullOrEmpty(searchString1))
+            {
+                usersQuery = usersQuery.Where(u => u.FirstName.Contains(searchString1));
+            }
+
+            if (!string.IsNullOrEmpty(searchString2))
+            {
+                usersQuery = usersQuery.Where(u => u.LastName.Contains(searchString2));
+            }
+
             List<AppUser> users = new List<AppUser>();
-            foreach (var user in _userManager.Users)
+
+            foreach (var user in usersQuery)
             {
                 if (await _userManager.IsInRoleAsync(user, "CEO"))
                 {
@@ -41,8 +54,10 @@ namespace VacationManager.Controllers
                 {
                     user.MainRole = "";
                 }
+
                 users.Add(user);
             }
+
             return View(users);
         }
 

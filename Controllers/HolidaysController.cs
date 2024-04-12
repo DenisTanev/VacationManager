@@ -39,12 +39,11 @@ namespace VacationManager.Controllers
             {
                 requests = await _db.Holidays
                     .Include(x => x.Requester)
-                    .Where(x => x.Requester.TeamId == user.TeamLedId)
-                    .Where(x => x.Requester.TeamLedId == null)
+                    .Where(x => x.Requester.TeamLedId == user.TeamLedId)
                     .Where(x => x.RequesterId != user.Id)
                     .ToListAsync();
             }
-            else if(await _userManager.IsInRoleAsync(user, "CEO"))
+            else if (await _userManager.IsInRoleAsync(user, "CEO"))
             {
                 requests = await _db.Holidays
                     .Include(x => x.Requester)
