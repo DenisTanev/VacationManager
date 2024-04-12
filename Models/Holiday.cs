@@ -37,8 +37,8 @@ namespace VacationManager.Models
 
         public HolidayType Type { get; set; }
 
-        [DisplayName("Description")]
-        public string? Description { get; set; }
+        [DisplayName("Patient note")]
+        public string? PatientNote { get; set; }
 
         [Required]
         [DisplayName("Requester")]

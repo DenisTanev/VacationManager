@@ -38,7 +38,7 @@ namespace VacationManager.Data
                 .WithMany(requester => requester.RequestedHolidays);
 
             modelBuilder.Entity<Holiday>()
-                .Property(holiday => holiday.Description)
+                .Property(holiday => holiday.PatientNote)
                 .IsRequired(false);
 
             modelBuilder.Entity<AppUser>()
