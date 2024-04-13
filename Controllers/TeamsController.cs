@@ -18,12 +18,20 @@ namespace VacationManager.Controllers
             _userManager = userManager;
             _db = db;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            var teams = from t in _db.Teams
+                        select t;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                teams = teams.Where(s => s.Name!.Contains(searchString));
+            }
+
             List<Team> data = new List<Team>();
-            foreach (var item in _db.Teams
+            foreach (var item in await teams
                 .Include(x => x.Project)
-                .ToList())
+                .ToListAsync())
             {
                 item.Leader = await _db.Users
                     .Where(x => x.Id == item.LeaderId)

@@ -20,11 +20,18 @@ namespace VacationManager.Controllers
         }
 
         [Authorize]
-        public IActionResult Index(int page = 1, int pageSize = 10)
+        public IActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            List<Project> data = new List<Project>();
+            var projects = from p in _db.Projects
+                           select p;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                projects = projects.Where(s => s.Name!.Contains(searchString));
+            }
+
             page -= 1;
-            data = _db.Projects
+            var data = projects
                 .Skip(page * pageSize)
                 .Take(pageSize)
                 .ToList();
